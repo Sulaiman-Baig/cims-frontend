@@ -1,0 +1,252 @@
+<h2 mat-dialog-title>Add New Course</h2>
+<mat-dialog-content fusePerfectScrollbar>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="form"
+    >
+        <br />
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Course Title</mat-label>
+                <input matInput formControlName="title" />
+                <mat-error>Course Title is reuired!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="px-8">
+                <mat-label>Alias</mat-label>
+                <input matInput formControlName="alias" />
+                <mat-error>Alias is reuired!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Fee Package</mat-label>
+                <input matInput formControlName="fee_package" />
+                <mat-error>Fee Package is reuired!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Duration in Weeks</mat-label>
+                <input matInput formControlName="duration_in_weeks" />
+                <mat-error>Duration in Weeks is reuired!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="px-8">
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category">
+                    <mat-option
+                        *ngFor="let category of categories"
+                        [value]="category.id"
+                    >
+                        {{ category.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="outline" fxFlex="33">
+                <button mat-stroked-button type="button" (click)="filePicker.click()" style=" width: 100%;
+                height: 55px;">Pick Image</button>
+                <input type="file" #filePicker (change)="onImagePicked($event)" style="display:none; ">            
+                <mat-error>CourseImage is reuired!</mat-error>
+            </mat-form-field>            -->
+        </div>
+
+        <!-- two -->
+
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+            <mat-label>Course Brief</mat-label>
+            <textarea
+                matInput
+                matInput formControlName="coursebrief"
+                placeholder="Course Brief"
+                rows="3"
+                required
+            ></textarea>
+            <mat-error>Course Brief is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>Learning Outcomes</mat-label>
+            <textarea
+                matInput
+                matInput formControlName="learningoutcomes"
+                placeholder="Learning Outcomes"
+                rows="3"
+                required
+            ></textarea>                
+            <mat-error>Learning Outcomes is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+            <mat-label>Target Audience</mat-label>
+                <textarea
+                    matInput
+                    matInput formControlName="targetaudience"
+                    placeholder="Target Audience"
+                    rows="3"
+                    required
+                ></textarea>                
+                <mat-error>Target Audience is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>Prerequisite</mat-label>
+            <textarea
+                matInput
+                matInput formControlName="prerequisite"
+                placeholder="Prerequisite"
+                rows="3"
+                required
+            ></textarea>                
+            <mat-error>Prerequisite is required!</mat-error>
+            </mat-form-field>
+        </div> -->
+
+        <!-- one -->
+        <div>
+            <mat-form-field appearance="outline" fxFlex="100" class="textarea">
+                <mat-label>Course Brief</mat-label>
+                <textarea
+                    matInput
+                    matInput
+                    formControlName="course_brief"
+                    placeholder="Course Brief"
+                    rows="2"
+                ></textarea>
+                <mat-error>Course Brief is required!</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" fxFlex="100" class="textarea">
+                <mat-label>Learning Outcomes</mat-label>
+                <textarea
+                    matInput
+                    matInput
+                    formControlName="learning_out_comes"
+                    placeholder="Learning Outcomes"
+                    rows="2"
+                ></textarea>
+                <mat-error>Learning Outcomes is required!</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" fxFlex="100" class="textarea">
+                <mat-label>Target Audience</mat-label>
+                <textarea
+                    matInput
+                    matInput
+                    formControlName="target_audience"
+                    placeholder="Target Audience"
+                    rows="2"
+                ></textarea>
+                <mat-error>Target Audience is required!</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline" fxFlex="100" class="textarea">
+                <mat-label>Prerequisite</mat-label>
+                <textarea
+                    matInput
+                    matInput
+                    formControlName="prerequisite"
+                    placeholder="Prerequisite"
+                    rows="2"
+                ></textarea>
+                <mat-error>Prerequisite is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- one -->
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Select Category</mat-label>
+                <mat-select
+                    [(ngModel)]="selectedCategory"
+                    (selectionChange)="onSlectCategory()"                    
+                >
+                    <mat-option
+                        *ngFor="let category of categories"
+                        [value]="category.id"
+                    >
+                        {{ category.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="px-8">
+                <mat-label>Instructor Name</mat-label>
+                <input matInput formControlName="instructor" />
+                <mat-error>Instructor Name is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>No. of Batches</mat-label>
+                <input matInput formControlName="batch" />
+                <mat-error>No. of Batches is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="outline" fxFlex="100" class="textarea">
+                <mat-label>Remarks</mat-label>
+                <textarea
+                    matInput
+                    [(ngModel)]="remarks"
+                    placeholder="Write some notes"
+                    rows="4"
+                    required
+                ></textarea>
+                <mat-icon matSuffix class="secondary-text">subject</mat-icon>
+                <mat-error>Description is required!</mat-error>
+            </mat-form-field>
+        </div> -->
+
+        <br />
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        CLOSE
+    </button>
+    <!-- <button
+        class="mat-raised-button mat-primary"
+        *ngIf="mode"
+        (click)="saveNotes()"
+        style="background: #039be5"
+    >
+        SAVE
+    </button> -->
+    <button
+        class="mat-raised-button mat-primary"        
+        (click)="addCourse()"
+        style="background: #039be5"
+        mat-dialog-close
+    >
+        CREATE
+    </button>
+</mat-dialog-actions>

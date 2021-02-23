@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>Update Category</h2>
+<mat-dialog-content fusePerfectScrollbar>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="form"
+    >
+        <div>
+            <mat-form-field appearance="outline" fxFlex="100" class="textarea">
+                <mat-label>Course Category</mat-label>
+                <input matInput formControlName="name" />
+                <mat-error>Course Category is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <br />
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        CLOSE
+    </button>
+    <!-- <button
+        class="mat-raised-button mat-primary"
+        *ngIf="mode"
+        (click)="saveNotes()"
+        style="background: #039be5"
+    >
+        SAVE
+    </button> -->
+    <!-- <button
+        class="mat-raised-button mat-primary"
+        (click)="onAddCategory()"
+        style="background: #039be5"
+        mat-dialog-close
+    >
+        CREATE
+    </button> -->
+
+    <button
+        class="mat-raised-button mat-primary"
+        (click)="onUpdateCategory()"
+        style="background: #039be5"
+        mat-dialog-close
+    >
+        UPDATE
+    </button>
+</mat-dialog-actions>

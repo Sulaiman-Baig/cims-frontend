@@ -1,0 +1,149 @@
+<div id="about" class="p-20" fxLayout="row wrap">
+    <div
+        class="about-content"
+        fxLayout="column"
+        fxFlex="100"
+        fxFlex.gt-sm="50"
+        fxFlex.gt-md="65"
+    >
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="accent">
+                <div class="title">Enquiry Details</div>
+            </header>
+
+         
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Campus</b></div>
+                        <div class="info">
+                            {{ enquirydetails?.campus.name }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Course</b></div>
+                        <div class="info">
+                            {{ enquirydetails?.course.title }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">                        
+                            <div class="title"><b>Created By</b></div>
+                            <div class="info">{{enquirydetails?.user.employee.full_name}}</div>                        
+                    </div>
+
+                    <div class="info-line pl-4" fxFlex="50">
+                        <div class="title"><b>Transfered</b></div>
+                        <div class="info" *ngIf='enquirydetails?.is_transfer===false'>No</div>
+                        <div class="info" *ngIf='enquirydetails?.is_transfer===true'>Yes</div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class="pr-4" fxFlex="50">                        
+                        <div class="title"><b>Status</b></div>
+                    
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "prospective"'>Prospective</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "need_analysis"'>Need Analysis</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "proposal"'>Proposal</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "negotiation"'>Negotiation</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "successfull"'>Successfully Enrolled</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "not_interested"'>Not Interested</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "transfer_enquiry"'>Transfered</div>                        
+                    </div>
+
+                    <div class="info-line pl-4" fxFlex="50">
+                        <div class="title"><b>Probability</b></div>
+                        <div class="info">{{enquirydetails?.probability}}</div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Possible Joining Date</b></div>
+                        <div class="info">
+                            {{ enquirydetails?.possible_join_date | date}}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Next Followup</b></div>
+                        <div class="info">
+                            {{ enquirydetails?.next_follow_up_date  | date}}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Contact</b></div>
+                        <div class="info">
+                            {{ enquirydetails?.contact }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Email</b></div>
+                        <div class="info">
+                            {{ enquirydetails?.email }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>City</b></div>
+                        <div class="info">
+                            {{ enquirydetails?.city }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Area</b></div>
+                        <div class="info">
+                            {{ enquirydetails?.area }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,153 @@
+<div
+    id="users"
+    class="page-layout carded fullwidth inner-scroll"
+    fusePerfectScrollbar
+>
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16">
+                    <mat-icon>school</mat-icon>
+                </button>
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">
+                        Students
+                    </div>
+                </div>
+            </div>
+
+            <!-- / ADD BUTTON -->
+            <!-- <button
+                mat-raised-button
+                (click)='onCreateInquiry()'
+                class="add-product-button fuse-white mt-24 mt-md-0"
+            >
+                <span>CREATE ENQUIRY</span>
+            </button> -->
+           
+        </div>
+        <!-- / HEADER -->
+       
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <mat-table
+                class="products-table"
+                #table
+                [dataSource]="dataSource"
+                fusePerfectScrollbar
+            >
+
+            
+                <!-- student_name -->
+                <ng-container matColumnDef="student_name">
+                    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let student"
+                    [routerLink]="['/student/profile/' +student.id]"
+                    style="color: #337ab7; cursor: pointer;"
+                    >
+                        <p class="text-truncate">{{ student?.admission?.student_name }}</p>
+                    </mat-cell>
+                </ng-container>              
+
+                <!--  personal_contact -->
+                <ng-container matColumnDef="personal_contact">
+                    <mat-header-cell *matHeaderCellDef>Personal Contact</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let student">
+                        <p class="text-truncate">{{ student.admission?.personal_contact }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- guardian_contact -->
+                <ng-container matColumnDef="guardian_contact">
+                    <mat-header-cell *matHeaderCellDef
+                        >Guardian Contact</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let student">
+                        <p class="text-truncate">{{ student.admission?.guardian_contact }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- registeration_no Column -->
+                <ng-container matColumnDef="registeration_no">
+                    <mat-header-cell *matHeaderCellDef
+                        >Registeration No.</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let student">
+                        <p class="text-truncate">{{ student?.registeration_no }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- roll_no Column -->
+                <ng-container matColumnDef="roll_no">
+                    <mat-header-cell *matHeaderCellDef
+                        >Roll No.</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let student">
+                        <p class="text-truncate">{{ student?.roll_no }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <!-- <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef
+                        >Status</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let student">
+                        <p class="text-truncate" >{{ student?.status }}</p>
+                       
+                    </mat-cell>
+                </ng-container> -->
+
+               
+
+                
+                
+                <style>
+                    .developer-image {
+                        width: 52px;
+                        height: 52px;
+                        border: 1px solid rgba(0, 0, 0, 0.12);
+                    }
+                </style>
+
+          
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let developer; columns: displayedColumns"
+                    class="product"
+                    matRipple
+                >
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,833 @@
+<h2 mat-dialog-title>New Admission</h2>
+<mat-dialog-content>
+<mat-vertical-stepper [linear]="true">
+
+    <mat-step [stepControl]="selectcourse">
+        <form fxLayout="column" [formGroup]="selectcourse">
+            <ng-template matStepLabel *ngIf='!isOwner'>Course and Batch</ng-template>
+            <ng-template matStepLabel *ngIf='isOwner'>Campus, Course and Batch</ng-template>
+            
+            <div fxFlex="1 0 auto" fxLayout="column">
+
+                <!-- <mat-form-field appearance="outline" fxFlex="33">
+                    <mat-label>Select Date of Birth</mat-label>
+                    <input matInput formControlName="dob" type="datetime-local" />
+                    <mat-datepicker></mat-datepicker>
+                </mat-form-field> -->
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    *ngIf='isOwner'
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Campus</mat-label>
+                        <mat-select                            
+                            formControlName="campus_id" 
+                            (selectionChange)='onCampusChange($event)'                           
+                        >
+                            <mat-option
+                                *ngFor="let campus of campuses"
+                                [value]="campus.id"
+                            >
+                                {{ campus.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                </div>
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Course</mat-label>
+                        <mat-select                            
+                            formControlName="course_id"
+                            (selectionChange)='onCourseChange($event)'
+                        >
+                            <mat-option
+                                *ngFor="let course of courses"
+                                [value]="course.id"
+                            >
+                                {{ course.title }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                    >
+                        <mat-label>Select Batch</mat-label>
+                        <mat-select
+                            
+                            formControlName="batch_id"
+                        >
+                            <mat-option
+                                *ngFor="let batch of batches"
+                                [value]="batch.id"
+                            >
+                                {{ batch.alias }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button
+                class="mr-8"
+                mat-raised-button
+                matStepperPrevious
+                type="button"
+                color="accent"
+                mat-dialog-close
+                (click)="close()"
+            >
+                Close
+            </button>
+                <button
+                    mat-raised-button
+                    matStepperNext
+                    type="button"
+                    color="accent"
+                    [disabled]="selectcourse.invalid"
+                >
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+     <mat-step [stepControl]="personalinfo">
+        <form fxLayout="column" [formGroup]="personalinfo">
+            <ng-template matStepLabel
+                >Personal Information</ng-template
+            >
+            <br />
+            <div fxFlex="1 0 auto" fxLayout="column">
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Student's Name</mat-label>
+                        <input
+                            matInput
+                            formControlName="student_name"
+                            required
+                        />
+                        <mat-error>Student's Name is required!</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                    >
+                        <mat-label>Guardian's Name</mat-label>
+                        <input matInput formControlName="guardian_name" required />
+                        <mat-error>Guardian's Name is required!</mat-error>
+                    </mat-form-field>
+                </div>              
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                >
+                    <mat-form-field appearance="outline" fxFlex="33">
+                        <mat-label>Date of Birth</mat-label>
+                <input
+                    matInput
+                    formControlName="dob"
+                    [matDatepicker]="dob"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="dob"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #dob></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="34"
+                        class="px-8"
+                    >
+                        <mat-label>N.I.C</mat-label>
+                        <input matInput formControlName="nic"   (keyup)='onSearchStudentWithNIC($event)' placeholder="0123456789123"/>
+                        <mat-error>N.I.C is required!</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33">
+                        <mat-label>Select Gender</mat-label>
+                        <mat-select
+                           
+                            formControlName="gender"
+                        >
+                            <mat-option
+                                *ngFor="let gender of genders"
+                                [value]="gender"
+                            >
+                                {{ gender }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                >
+                    <mat-form-field appearance="outline" fxFlex="33">
+                        <mat-label>Nationality</mat-label>
+                        <input
+                            matInput
+                            formControlName="nationality"
+                            required
+                        />
+
+                        <mat-error>Nationality is required!</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="34"
+                        class="px-8"
+                    >
+                        <mat-label>Personal Contact No.</mat-label>
+                        <input matInput formControlName="personal_contact" (keyup)='onSearchStudentWithContactNo($event)'  placeholder="01231234567" required/>
+                        <mat-error>Personal Contact No. is required!</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="33">
+                        <mat-label>Guardian's Contact No.</mat-label>
+                        <input
+                            matInput
+                            formControlName="guardian_contact"
+                            (keyup)='onSearchStudentWithGuardianContactNo($event)'
+                            placeholder="01231234567"
+                            required
+                        />
+                        <mat-error
+                            >Guardian's Contact No. is required!</mat-error
+                        >
+                    </mat-form-field>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email"  (keyup)='onSearchStudentWithEmail($event)'/>
+                        <mat-error>Email is required!</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                    >
+                        <mat-label>Postal Address</mat-label>
+                        <input
+                            matInput
+                            formControlName="postal_address"
+                            required
+                           
+                        />
+                        <mat-error>Postal Address is required!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <h3 *ngIf='isStudentAlreadyExist' style="color: red;">Student Already Exists!</h3>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button
+                class="mr-8"
+                mat-raised-button
+                matStepperPrevious
+                type="button"
+                color="accent"
+                mat-dialog-close
+                (click)="close()"
+            >
+                Close
+            </button>
+                <button
+                    class="mr-8"
+                    mat-raised-button
+                    matStepperPrevious
+                    type="button"
+                    color="accent"
+                >
+                    Previous
+                </button>
+                <button
+                    mat-raised-button
+                    matStepperNext
+                    type="button"
+                    color="accent"
+                    [disabled]='isStudentAlreadyExist || personalinfo.invalid'
+                    
+                >
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+     <mat-step [stepControl]="academicinfo">
+        <form fxLayout="column" [formGroup]="academicinfo">
+            <ng-template matStepLabel
+                >Academic Record</ng-template
+            >
+            <br>
+            <div fxFlex="1 0 auto" fxLayout="row">
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                            <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" >
+                                <mat-label>Certificate / Degree</mat-label>
+                                <input matInput formControlName="certificate1"  />
+                                <mat-error>Certificate / Degree is required!</mat-error>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 12px;">
+                                <mat-label>College / University</mat-label>
+                                <input matInput formControlName="institute1"  />
+                                <mat-error>College / University is required!</mat-error>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 24px;">
+                                <mat-label>Year</mat-label>
+                                <input matInput formControlName="year1"  placeholder="0000" />
+                                <mat-error>Year is required!</mat-error>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 40px;">
+                                <mat-label>Marks / Percentage</mat-label>
+                                <input matInput formControlName="percentage1"   />
+                                <mat-error>Marks/Percentage is required!</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" >
+                                    <mat-label>Certificate / Degree</mat-label>
+                                    <input matInput formControlName="certificate2"  />
+                                    <mat-error>Certificate / Degree is required!</mat-error>
+                                </mat-form-field>
+                    
+                                <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 12px;">
+                                    <mat-label>College / University</mat-label>
+                                    <input matInput formControlName="institute2"  />
+                                    <mat-error>College / University is required!</mat-error>
+                                </mat-form-field>
+                    
+                                <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 24px;">
+                                    <mat-label>Year</mat-label>
+                                    <input matInput formControlName="year2"  placeholder="0000"/>
+                                    <mat-error>Year is required!</mat-error>
+                                </mat-form-field>
+                    
+                                <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 40px;">
+                                    <mat-label>Marks / Percentage</mat-label>
+                                    <input matInput formControlName="percentage2"  />
+                                    <mat-error>Marks/Percentage is required!</mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                                    <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" >
+                                        <mat-label>Certificate / Degree</mat-label>
+                                        <input matInput formControlName="certificate3"  />
+                                        <mat-error>Certificate / Degree is required!</mat-error>
+                                    </mat-form-field>
+                        
+                                    <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 12px;">
+                                        <mat-label>College / University</mat-label>
+                                        <input matInput formControlName="institute3"  />
+                                        <mat-error>College / University is required!</mat-error>
+                                    </mat-form-field>
+                        
+                                    <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 24px;">
+                                        <mat-label>Year</mat-label>
+                                        <input matInput formControlName="year3"  placeholder="0000"/>
+                                        <mat-error>Year is required!</mat-error>
+                                    </mat-form-field>
+                        
+                                    <mat-form-field appearance="outline" fxFlex="25" class="fourdivs" style="left: 40px;">
+                                        <mat-label>Marks / Percentage</mat-label>
+                                        <input matInput formControlName="percentage3"  />
+                                        <mat-error>Marks/Percentage is required!</mat-error>
+                                    </mat-form-field>
+                                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button
+                class="mr-8"
+                mat-raised-button
+                matStepperPrevious
+                type="button"
+                color="accent"
+                mat-dialog-close
+                (click)="close()"
+            >
+                Close
+            </button>
+                <button
+                    class="mr-8"
+                    mat-raised-button
+                    matStepperPrevious
+                    type="button"
+                    color="accent"
+                >
+                    Previous
+                </button>
+                <button
+                    mat-raised-button
+                    matStepperNext
+                    type="button"
+                    color="accent"
+                    [disabled]="academicinfo.invalid"
+                >
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="forofficeuse">
+        <form fxLayout="column" [formGroup]="forofficeuse"
+       
+        >
+            <ng-template matStepLabel>Registration and Fee</ng-template>
+
+            <!-- Orignal Fee -->
+            <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Orignal Fee</mat-label>
+                        <input
+                            matInput
+                           
+                            formControlName="feepackage"
+                            disabled
+                            name='orignalfee'
+                        />
+                        <!-- <mat-error>Student's Name is required!</mat-error> -->
+                    </mat-form-field>
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                    >
+                        <mat-label>Discount Percentage</mat-label>
+                        <input matInput 
+                        name='discountpercentage'
+                        
+                        formControlName="discountpercentage"
+                        (change)='onDiscountPercentage($event)'
+                        required />
+                        <mat-error>Discount Percentage is required!</mat-error>
+                    </mat-form-field>
+            </div> 
+
+            <!-- Payable Fee -->
+             <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Payable Fee</mat-label>
+                        <input
+                            matInput
+                            name="payable"
+                            
+                            formControlName="payable"
+                            disabled
+                        />
+                        <mat-error>Student's Name is required!</mat-error>
+                    </mat-form-field>                   
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                        
+                    >
+                    <mat-label>Payment Plan</mat-label>
+                    <mat-select
+                    formControlName="paymentplan"   
+                    
+                    (selectionChange)='onPaymentPalan($event)'
+                    
+                >
+                    <mat-option
+                        *ngFor="let paymentplan of paymentplans"
+                        [value]="paymentplan"
+                    >
+                        {{ paymentplan }}
+                    </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+            </div>
+
+            <!-- No of Instalments -->
+            <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    *ngIf='isinstallments'
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                    <mat-label>No. of Instalment</mat-label>
+                    <mat-select
+                    formControlName="paymentplan"   
+                    
+                    (selectionChange)='onNoOfInstalments($event)'
+                    
+                >
+                    <mat-option
+                        *ngFor="let noofinstalment of noofinstalments"
+                        [value]="noofinstalment"
+                    >
+                        {{ noofinstalment }}
+                    </mat-option>
+                    </mat-select>
+                    </mat-form-field>                   
+
+                    
+            </div>
+
+            <!-- Two Instalments -->
+            <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    *ngIf='twoinstallments && isinstallments'
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Installment I</mat-label>
+                        <input
+                            matInput
+                            name="2instalment1"                            
+                            formControlName="instalment21"
+                            
+                            
+                        />
+                        <mat-error>Installment I is required!</mat-error>
+                    </mat-form-field>                   
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                        
+                    >
+                    <mat-label>Due Date</mat-label>
+                <input
+                    matInput
+                    formControlName="duedate21"
+                    [matDatepicker]="duedate1instalment2"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="duedate1instalment2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #duedate1instalment2></mat-datepicker>
+                    </mat-form-field>
+            </div>
+
+            <!-- Two Instalments -->
+            <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    *ngIf='twoinstallments && isinstallments'
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Installment II</mat-label>
+                        <input
+                            matInput
+                            name="2instalment2"                            
+                            formControlName="instalment22"    
+                            (change)='is2InstallmentsValid()'                        
+                        />
+                        <mat-error>Installment II is required!</mat-error>
+                    </mat-form-field>                   
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                        
+                    >
+                    <mat-label>Due Date</mat-label>
+                    <input
+                        matInput
+                        formControlName="duedate22"
+                        [matDatepicker]="duedate2instalment2"
+                        
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="duedate2instalment2"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #duedate2instalment2></mat-datepicker>
+                    </mat-form-field>
+            </div>
+
+            <!-- Three Instalments -->
+            <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    *ngIf='threeinstallments && isinstallments'
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Installment I</mat-label>
+                        <input
+                            matInput
+                            name="3instalment1"                            
+                            formControlName="instalment31"                            
+                        />
+                        <mat-error>Installment I is required!</mat-error>
+                    </mat-form-field>                   
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                        
+                    >
+                    <mat-label>Due Date</mat-label>
+                <input
+                    matInput
+                    formControlName="duedate31"
+                    [matDatepicker]="duedate1instalment3"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="duedate1instalment3"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #duedate1instalment3></mat-datepicker>
+                    </mat-form-field>
+            </div>
+
+            <!-- Three Instalments -->
+            <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    *ngIf='threeinstallments && isinstallments'
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Installment II</mat-label>
+                        <input
+                            matInput
+                            name="3instalment2"                            
+                            formControlName="instalment32"                            
+                        />
+                        <mat-error>Installment II is required!</mat-error>
+                    </mat-form-field>                   
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                        
+                    >
+                    <mat-label>Due Date</mat-label>
+                    <input
+                        matInput
+                        formControlName="duedate32"
+                        [matDatepicker]="duedate2instalment3"
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="duedate2instalment3"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #duedate2instalment3></mat-datepicker>
+                    </mat-form-field>
+            </div>
+
+            <!-- Three Instalments -->
+            <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    *ngIf='threeinstallments && isinstallments'
+                >
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 twodivs"
+                    >
+                        <mat-label>Installment III</mat-label>
+                        <input
+                            matInput
+                            name="3instalment3"                            
+                            formControlName="instalment33"  
+                            (change)='is3InstallmentsValid()'                          
+                        />
+                        <mat-error>Installment III is required!</mat-error>
+                    </mat-form-field>                   
+
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pl-4 twodivs"
+                        
+                    >
+                    <mat-label>Due Date</mat-label>
+                    <input
+                        matInput
+                        formControlName="duedate33"
+                        [matDatepicker]="duedate3instalment3"
+                        
+                    />
+                    <mat-datepicker-toggle
+                        matSuffix
+                        [for]="duedate3instalment3"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #duedate3instalment3></mat-datepicker>
+                    </mat-form-field>
+            </div>
+            <h3 *ngIf='invalidInstalments' style="color: red;">Sum of All Installments Should Be Equal to Payable Amount</h3>
+            
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button
+                class="mr-8"
+                mat-raised-button
+                matStepperPrevious
+                type="button"
+                color="accent"
+                mat-dialog-close
+                (click)="close()"
+            >
+                Close
+            </button>
+                <button
+                    class="mr-8"
+                    mat-raised-button
+                    matStepperPrevious
+                    type="button"
+                    color="accent"
+                >
+                    Previous
+                </button>
+                <button
+                    mat-raised-button
+                    matStepperNext
+                    type="button"
+                    color="accent"
+                    [disabled]="forofficeuse.invalid || invalidInstalments"
+                >
+                    Next
+                </button>
+            </div>
+        </form>
+    </mat-step> 
+
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+
+        <!-- <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+            Thank your for filling out our form.
+        </div> -->
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button
+                class="mr-8"
+                mat-raised-button
+                matStepperPrevious
+                type="button"
+                color="accent"
+                mat-dialog-close
+                (click)="close()"
+            >
+                Close
+            </button>
+            <button
+                class="mr-8"
+                mat-raised-button
+                matStepperPrevious
+                type="button"
+                color="accent"
+            >
+                Previous
+            </button>
+            <button
+                mat-raised-button
+                type="button"
+                color="accent"
+                (click)="onCreateAdmission()"
+            >
+                CREATE ADMISSION
+            </button>
+        </div>
+    </mat-step>
+</mat-vertical-stepper>
+</mat-dialog-content>

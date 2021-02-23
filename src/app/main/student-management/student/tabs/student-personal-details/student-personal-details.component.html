@@ -1,0 +1,231 @@
+<div id="about" class="p-20" fxLayout="row wrap">
+    <div
+        class="about-content"
+        fxLayout="column"
+        fxFlex="100"
+        fxFlex.gt-sm="50"
+        fxFlex.gt-md="65"
+    >
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="accent">
+                <div class="title">Personal Details</div>
+            </header>
+
+         
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Name</b></div>
+                        <div class="info">
+                            {{ student?.admission?.student_name }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Email</b></div>
+                        <div class="info">
+                            {{ student?.admission?.email }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Personal Contact No.</b></div>
+                        <div class="info">
+                            {{ student?.admission?.personal_contact }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Guardian Contact No.</b></div>
+                        <div class="info">
+                            {{ student?.admission?.guardian_contact }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Roll No.</b></div>
+                        <div class="info">
+                            {{ student?.roll_no }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>CNIC</b></div>
+                        <div class="info">
+                            {{ student?.admission?.nic }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>D.O.B</b></div>
+                        <div class="info">
+                            {{ student?.admission?.dob | date}}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Gender</b></div>
+                        <div class="info">
+                            {{ student?.admission?.gender }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Nationality</b></div>
+                        <div class="info">
+                            {{ student?.admission?.nationality }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Enrolled At</b></div>
+                        <div class="info">
+                            {{ student?.admission?.createdAt | date }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Registration No.</b></div>
+                        <div class="info">
+                            {{ student?.registeration_no }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Postal Address</b></div>
+                        <div class="info">
+                            {{ student?.admission?.postal_address }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                fxLayout="row"
+                fxLayoutAlign="start center"
+                fxFlex="1 0 auto"
+                class="content"
+            >
+                <div class=" pr-4" fxFlex="50">
+                    <div class="title"><b>Status</b></div>
+                    <div class="info">
+                        {{ student?.status }}
+                    </div>
+                </div>
+
+                <div class=" pl-4" fxFlex="50">
+                    <div class="title"><b>Discount</b></div>
+                    <div class="info">
+                        {{ student?.admission?.discount }}%
+                    </div>
+                </div>
+            </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Fee Package</b></div>
+                        <div class="info">
+                            {{ student?.admission?.fee_package }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Fee Package After Discount</b></div>
+                        <div class="info">
+                            {{student?.admission?.fee_package_after_discount}}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class=" pr-4" fxFlex="50">
+                        <div class="title"><b>Transferd</b></div>
+                        <div class="info">
+                            {{ student?.is_transfer }}
+                        </div>
+                    </div>
+
+                    <div class=" pl-4" fxFlex="50">
+                        <div class="title"><b>Remarks</b></div>
+                        <div class="info">
+                            {{student?.admission?.remarks}}
+                        </div>
+                    </div>
+                </div>
+<!--  -->
+               
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="start center"
+                    fxFlex="1 0 auto"
+                    class="content"
+                >
+                    <div class="pr-4" fxFlex="50">                        
+                        <!-- <div class="title"><b>Status</b></div>
+                    
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "prospective"'>Prospective</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "need_analysis"'>Need Analysis</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "proposal"'>Proposal</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "negotiation"'>Negotiation</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "successfull"'>Successfully Enrolled</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "not_interested"'>Not Interested</div>
+                        <div class="text-truncate info" *ngIf='enquirydetails?.status === "transfer_enquiry"'>Transfered</div>                        
+                    </div> -->
+
+                    <!-- <div class="info-line pl-4" fxFlex="50">
+                        <div class="title"><b>Probability</b></div>
+                        <div class="info">{{enquirydetails?.probability}}</div>
+                    </div> -->
+                </div>
+
+        </div>
+    </div>
+</div>

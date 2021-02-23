@@ -1,0 +1,183 @@
+<div
+    id="users"
+    class="page-layout carded fullwidth inner-scroll"
+    fusePerfectScrollbar
+>
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16">
+                    <mat-icon>reorder</mat-icon>
+                </button>
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">
+                        Ended Batch
+                    </div>
+                </div>
+            </div>
+
+            <!-- / ADD BUTTON -->
+            <!-- <button
+                mat-raised-button
+                [routerLink]="['/batch/create']"
+                class="add-product-button fuse-white mt-24 mt-md-0"
+            >
+                <span>ADD BATCH</span>
+            </button> -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <mat-table
+                class="products-table"
+                #table
+                [dataSource]="dataSource"
+                fusePerfectScrollbar
+            >
+                <!-- Name Title -->
+                <ng-container matColumnDef="Title">
+                    <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+                    <mat-cell *matCellDef="let batch"
+                    [routerLink]="['/batch/students-by-batch/' +batch.id]"
+                    style="color: #337ab7; cursor: pointer;">
+                        
+                        <p class="text-truncate">{{ batch.alias }}</p>
+                    </mat-cell>
+                </ng-container>              
+
+                <!-- Username Course -->
+                <ng-container matColumnDef="Course">
+                    <mat-header-cell *matHeaderCellDef
+                        >Course</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let batch">
+                        <p class="text-truncate">{{ batch.course.title }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Designation User -->
+                <ng-container matColumnDef="User">
+                    <mat-header-cell *matHeaderCellDef
+                        >Created By</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let batch">
+                        <p class="text-truncate">{{ batch.user.employee?.full_name }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Employee Column -->
+                <ng-container matColumnDef="Employee">
+                    <mat-header-cell *matHeaderCellDef
+                        >Taught By</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let batch">
+                        <p class="text-truncate">{{ batch.employee.full_name }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Batch Time Column -->
+                <ng-container matColumnDef="batch_time">
+                    <mat-header-cell *matHeaderCellDef
+                        >Time</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let batch">
+                        <p class="text-truncate">{{ batch.batch_time }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="batch_start_date">
+                    <mat-header-cell *matHeaderCellDef
+                        >Date</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let batch">
+                        <p class="text-truncate">{{ batch.batch_start_date | date:'mediumDate'}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- No of Seats Column -->
+                <ng-container matColumnDef="no_of_seats">
+                    <mat-header-cell *matHeaderCellDef
+                        >No of Seats</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let batch">
+                        <p class="text-truncate">{{ batch.no_of_seats }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Remarks Column -->
+                <!-- <ng-container matColumnDef="Remarks">
+                    <mat-header-cell *matHeaderCellDef
+                        >Remarks</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let batch">
+                        <p class="text-truncate">{{ batch.remarks }}</p>
+                    </mat-cell>
+                </ng-container> -->
+                
+                
+                <style>
+                    .developer-image {
+                        width: 52px;
+                        height: 52px;
+                        border: 1px solid rgba(0, 0, 0, 0.12);
+                    }
+                </style>
+
+                <!-- Action Column -->
+                <!-- <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                    <mat-cell *matCellDef="let category" class="action-link">
+                        <a (click)="onUpdateCategory(category)">
+                            <mat-icon  class="icon"
+                                >edit</mat-icon
+                            >
+                        </a>
+                        |
+                        <a (click)="onDeleteCategory(category.id)">
+                            <mat-icon class="icon"
+                                >delete</mat-icon
+                            >
+                        </a>
+                    </mat-cell>
+                </ng-container> -->
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let developer; columns: displayedColumns"
+                    class="product"
+                    matRipple
+                >
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

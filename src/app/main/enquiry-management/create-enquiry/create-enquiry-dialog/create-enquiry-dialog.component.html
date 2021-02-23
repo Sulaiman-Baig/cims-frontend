@@ -1,0 +1,212 @@
+<h2 mat-dialog-title>Create Enquiry</h2>
+<mat-dialog-content>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="form"
+    >
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="25">
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="full_name" required />
+                <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
+                <mat-error>Full Name is required!</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" fxFlex="25" class="px-8">
+                <mat-label>Primary Contact</mat-label>
+                <input matInput formControlName="contact" required  placeholder="01231234567"/>
+                <!-- <mat-icon matSuffix class="secondary-text">code</mat-icon> -->
+                <mat-error>Contact No is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25" class="px-8">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" />
+                <!-- <mat-icon matSuffix class="secondary-text">timeline</mat-icon> -->
+                <mat-error>Email is required!</mat-error>   
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25">
+                <mat-label>Gender</mat-label>
+                <mat-select
+                    required
+                    formControlName="gender"
+                >
+                    <mat-option
+                        *ngFor="let gender of genders"
+                        [value]="gender"
+                    >
+                        {{ gender }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">            
+
+            <mat-form-field appearance="outline" fxFlex="25" >
+                <mat-label>Country</mat-label>
+                <mat-select                    
+                    formControlName="country"
+                >
+                    <mat-option
+                        *ngFor="let country of cournties"
+                        [value]="country"
+                    >
+                        {{ country }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25" class="px-8">
+                <mat-label>City</mat-label>
+                <mat-select                    
+                    formControlName="city"
+                    (selectionChange)="onCityChange($event)"
+                >
+                    <mat-option *ngFor="let city of cities" [value]="city">
+                        {{ city }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25" class="px-8">
+                <mat-label>Area</mat-label>
+                <input matInput formControlName="area" required />
+                <mat-error>Area is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25">
+                <mat-label>Prefered Campus</mat-label>
+                <mat-select
+                    
+                    formControlName="campus_id"
+                >
+                    <mat-option
+                        *ngFor="let campus of campuses"
+                        [value]="campus.id"
+                    >
+                        {{ campus.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">           
+
+            <mat-form-field appearance="outline" fxFlex="25" >
+                <mat-label>Course</mat-label>
+                <mat-select
+                    
+                    formControlName="course_id"
+                >
+                    <mat-option
+                        *ngFor="let course of courses"
+                        [value]="course.id"
+                    >
+                        {{ course.title }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25" class="px-8">
+                <mat-label>Joining Date</mat-label>
+                <input
+                    matInput
+                    formControlName="possible_join_date"
+                    [matDatepicker]="joining_date"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="joining_date"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #joining_date></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25" class="px-8">
+                <mat-label>Probability</mat-label>
+                <mat-select
+                    
+                    formControlName="probability"
+                >
+                    <mat-option
+                        *ngFor="let probability of probabilities"
+                        [value]="probability.probDB"
+                    >
+                        {{ probability.probValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="25">
+                <mat-label>Marketing Source</mat-label>
+                <mat-select
+                   
+                    formControlName="marketing_source"
+                >
+                    <mat-option
+                        *ngFor="let marketingsource of marketingsources"
+                        [value]="marketingsource"
+                    >
+                        {{ marketingsource }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+       
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="64.6"               
+                
+            >
+                <mat-label >Remarks</mat-label >
+                <textarea
+                    matInput
+                    formControlName="remarks"
+                    placeholder="Write some remarks"
+                    rows="1"
+                    required
+                ></textarea>
+                <mat-icon matSuffix class="secondary-text">subject</mat-icon>
+                <mat-error>Remarks is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="32.6" style="left: 20px;">
+                <mat-label>Next Follow Up</mat-label>
+                <input
+                    matInput
+                    formControlName="next_follow_up_date"
+                    [matDatepicker]="next_follow_up_date"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="next_follow_up_date"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #next_follow_up_date></mat-datepicker>
+            </mat-form-field>
+
+           
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        CLOSE
+    </button>
+   
+    <button
+        class="mat-raised-button mat-primary"        
+        (click)="onCreateEnquiry()"
+        style="background: #039be5"
+    >
+        CREATE
+    </button>
+    
+</mat-dialog-actions>

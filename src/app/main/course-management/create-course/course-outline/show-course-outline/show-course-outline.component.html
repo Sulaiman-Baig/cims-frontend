@@ -1,0 +1,50 @@
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+      
+            class="  header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div
+                class="logo mb-24 mb-md-0"
+                fxLayout="row"
+                fxLayoutAlign="start center"
+            >
+                <span
+                    class="logo-text h1"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    Course Outline
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div
+            class="mat-card mat-elevation-z4 p-24 mr-24"
+            fxLayout="column"
+            fxLayoutAlign="start"
+            fxFlex="100"
+            name="form"
+        >
+            <div class="h2 mb-24">Reactive Form Example</div>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

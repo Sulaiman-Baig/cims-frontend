@@ -1,0 +1,83 @@
+<h2 mat-dialog-title>Voice Call to  {{enquiry.enquiry.full_name}}</h2>
+<mat-dialog-content fusePerfectScrollbar>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="form"
+    >
+        <br />
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+                <mat-label>Contact No.</mat-label>
+                <input matInput formControlName="contact"/>
+                <mat-error>Contact No. is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>Follow Up Date</mat-label>
+            <input
+                matInput
+                formControlName="next_follow_up_date"
+                [matDatepicker]="next_follow_up_date"
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="next_follow_up_date"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #next_follow_up_date></mat-datepicker>
+            </mat-form-field>
+        </div>
+       
+
+        <div>
+            <mat-form-field appearance="outline" fxFlex="100" class="textarea">
+                <mat-label>Message</mat-label>
+                <textarea
+                    matInput
+                    formControlName="remarks"
+                    placeholder="Write some notes"
+                    rows="4"
+                ></textarea>
+                <mat-icon matSuffix class="secondary-text">subject</mat-icon>
+                <mat-error>Message is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <br />
+        <h3 *ngIf='isDateValid' style="color: red;">Next Follow Up Date Should be Greter than {{enquiry.enquiry.next_follow_up_date | date:'mediumDate'}}</h3>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="close()" >
+        CLOSE
+    </button>
+    <!-- <button
+        class="mat-raised-button mat-primary"
+        *ngIf="mode"
+        (click)="saveNotes()"
+        style="background: #039be5"
+    >
+        SAVE
+    </button> -->
+    <!-- <button
+        class="mat-raised-button mat-primary"
+        (click)="onSendSMS()"
+        style="background: #039be5"
+       
+        [disabled]='form.invalid'
+    >
+       SEND
+    </button> -->
+</mat-dialog-actions>

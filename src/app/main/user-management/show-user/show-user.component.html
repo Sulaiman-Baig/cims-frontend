@@ -1,0 +1,169 @@
+<div
+    id="users"
+    class="page-layout carded fullwidth inner-scroll"
+    fusePerfectScrollbar
+>
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16">
+                    <mat-icon>account_box</mat-icon>
+                </button>
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">
+                        User
+                    </div>
+                </div>
+            </div>
+
+            <!-- / ADD BUTTON -->
+            <button
+                mat-raised-button
+               (click)='onCreateUser()'
+                class="add-product-button fuse-white mt-24 mt-md-0"
+            >
+                <span>ADD USER</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <mat-table
+                class="products-table"
+                #table
+                [dataSource]="dataSource"
+                fusePerfectScrollbar
+            >
+                <!-- Name Column -->
+                <ng-container matColumnDef="Full Name">
+                    <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{ user.employee.full_name }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Image Column -->
+                <!-- <ng-container matColumnDef="Image">
+                    <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                        <img class="developer-image" [src]="url+'/'+user.employee.image" />
+                        <img *ngIf="!employee.image" [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                    </mat-cell>
+                </ng-container> -->
+
+                <!-- Username Column -->
+                <ng-container matColumnDef="Username">
+                    <mat-header-cell *matHeaderCellDef
+                        >Username</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{ user.username }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Designation Column -->
+                <ng-container matColumnDef="Designation">
+                    <mat-header-cell *matHeaderCellDef
+                        >Designation</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{ user.employee.designation }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Personal Email Column -->
+                <ng-container matColumnDef="Personal Email">
+                    <mat-header-cell *matHeaderCellDef
+                        >Personal Email</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{ user.employee.personal_email }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Primary Mobile No Column -->
+                <ng-container matColumnDef="Primary Mobile No">
+                    <mat-header-cell *matHeaderCellDef
+                        >Primary Mobile No.</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{ user.employee.primary_mobile_no }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Role Column -->
+                <ng-container matColumnDef="Role">
+                    <mat-header-cell *matHeaderCellDef
+                        >Role</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{ user.role }}</p>
+                    </mat-cell>
+                </ng-container>
+                
+                
+                <style>
+                    .developer-image {
+                        width: 52px;
+                        height: 52px;
+                        border: 1px solid rgba(0, 0, 0, 0.12);
+                    }
+                </style>
+
+                <!-- Action Column -->
+                <!-- <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                    <mat-cell *matCellDef="let category" class="action-link">
+                        <a (click)="onUpdateCategory(category)">
+                            <mat-icon  class="icon"
+                                >edit</mat-icon
+                            >
+                        </a>
+                        |
+                        <a (click)="onDeleteCategory(category.id)">
+                            <mat-icon class="icon"
+                                >delete</mat-icon
+                            >
+                        </a>
+                    </mat-cell>
+                </ng-container> -->
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let developer; columns: displayedColumns"
+                    class="product"
+                    matRipple
+                >
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

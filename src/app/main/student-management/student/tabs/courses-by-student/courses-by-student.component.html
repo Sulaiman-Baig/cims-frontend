@@ -1,0 +1,183 @@
+
+<div id="about" class="p-20" fxLayout="row wrap">
+    <div
+        class="about-content"
+        fxLayout="column"
+        fxFlex="90"
+        fxFlex.gt-sm="70"
+        fxFlex.gt-md="70"
+    >
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="accent">
+                <div class="title">Courses</div>
+            </header>  
+            <h3 *ngIf='!isCourses' style="text-align: center;">Student is not enrolled in any course yet!</h3>
+            <div
+                    fxLayout="row wrap"
+                    fxLayoutAlign="space-between"
+                    fxFlex="1 0 auto"
+                    class="content"
+                    *ngIf='isCourses'
+                >
+                    <div  fxFlex="50" *ngFor='let course of courses'>
+                        <div id="cards" class="page-layout simple fullwidth">  
+                            <div class="content" [ngClass]="this.view">                        
+                                <div class="cards">                        
+                               
+                                     <div class="card" >                        
+                                     
+                                        <div class="card-preview">                        
+                                            <div class="fuse-card" >                        
+                                                <div class="p-16" fxLayout="row" fxLayoutAlign="space-between center">
+                                                    <div class="h1 pr-16">{{course?.course?.title}} ({{course?.courseStatus}})</div>
+                        
+                                                <div>
+                                                        <button mat-icon-button [matMenuTriggerFor]="card20Menu" aria-label="more">
+                                                            <mat-icon>more_vert</mat-icon>
+                                                        </button>
+                        
+                                                        <mat-menu #card20Menu="matMenu">
+                                                            <button (click)='onBatchTransfer({courseAdmissionId: course?.id, courseId: course?.course?.id, batchId: course?.batch?.id, campusId: course?.campus?.id})' fxLayout="row" fxLayoutAlign="start center" mat-menu-item>
+                                                               
+                                                                <span>Transfer Batch</span>
+                                                            </button>
+                                                            <button (click)='onCampusTransfer({courseAdmissionId: course?.id, batchId: course?.batch?.id, campusId: course?.campus?.id})' fxLayout="row" fxLayoutAlign="start center" mat-menu-item>
+                                                               
+                                                                <span>Transfer Campus</span>
+                                                            </button>
+                                                            <button (click)='onConcludeCourse(course?.id)' fxLayout="row" fxLayoutAlign="start center" mat-menu-item>
+                                                                
+                                                                <span>Conclude Course</span>
+                                                            </button>
+                                                            <button (click)='onNotCompletedCourse(course?.id)' fxLayout="row" fxLayoutAlign="start center" mat-menu-item>
+                                                              
+                                                                <span>Not Completed Course</span>
+                                                            </button>
+                                                            <button (click)='onSuspendCourse(course?.id)' fxLayout="row" fxLayoutAlign="start center" mat-menu-item>
+                                                           
+                                                                <span>Suspend Course</span>
+                                                            </button>
+                                                            <button (click)='onResumeCourse(course?.id)' fxLayout="row" fxLayoutAlign="start center" mat-menu-item>
+                                                              
+                                                                <span>Resume Course</span>
+                                                            </button>
+                                                            <button (click)='onFreezeCourse(course?.id)' fxLayout="row" fxLayoutAlign="start center" mat-menu-item>
+                                                               
+                                                                <span>Freeze Course</span>
+                                                            </button>
+                                                            <button (click)='onUnfreezeCourse(course?.id)' fxLayout="row" fxLayoutAlign="start center" mat-menu-item>
+                                                              
+                                                                <span>Unfreeze Course</span>
+                                                            </button>
+                                                            
+                                                           
+                                                        </mat-menu>
+                                                </div>
+                                                </div>
+                                                <mat-tab-group >
+                                                    <mat-tab label="Details">
+                                                       
+                                                        <br>
+                                                <div class="p-16 pt-4">
+                                                    <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <div>Batch</div>
+                                                        <div fxLayout="row" fxLayoutAlign="start center">                                    
+                                                            <div class="secondary-text">{{course?.batch?.alias}}</div>                                   
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <div>Campus</div>
+                                                        <div fxLayout="row" fxLayoutAlign="start center">                                    
+                                                            <div class="secondary-text">{{course?.campus?.name}}</div>                                   
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <div>Enrolled By</div>
+                                                        <div fxLayout="row" fxLayoutAlign="start center">                                    
+                                                            <div class="secondary-text">{{course?.user?.employee?.full_name}}</div>                                   
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <div>Fee Package</div>
+                                                        <div fxLayout="row" fxLayoutAlign="start center">                                    
+                                                            <div class="secondary-text">{{course?.fee_package}}</div>                                   
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <div>Discount</div>
+                                                        <div fxLayout="row" fxLayoutAlign="start center">                                    
+                                                            <div class="secondary-text">{{course?.discount}}%</div>                                   
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <div>Receivable</div>
+                                                        <div fxLayout="row" fxLayoutAlign="start center">                                    
+                                                            <div class="secondary-text">{{course?.fee_package_after_discount}}</div>                                   
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-12" fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <div>Enrolled At</div>
+                                                        <div fxLayout="row" fxLayoutAlign="start center">                                    
+                                                            <div class="secondary-text">{{course?.createdAt | date}}</div>                                   
+                                                        </div>
+                                                    </div>
+                        
+                        
+                                                  
+                                                </div>
+                                                
+                                                </mat-tab>
+                                                <mat-tab label="Installments">
+                                                        <table class="simple ">
+                                                            <thead style="text-align: center;">
+                                                                <tr>
+                                                                   
+                                                                    <th >Amount</th>
+                                                                    <th >Date</th>
+                                                                    <th >Status</th>
+                                                                    <th >Action</th>
+                                                                    <th ></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor='let installment of course?.installments'>
+                                                                    <td>{{installment?.installment}}</td>
+                                                                    <td >{{installment?.due_date | date}}</td>
+                                                                    <td >{{installment?.status}}</td>
+                                                                    <td *ngIf='installment?.status==="Unpaid"'  (click)='onCollectInstallment(installment?.id)'><mat-icon style="text-align: center; cursor: pointer;">add_circle_outline</mat-icon></td>
+                                                                    <td *ngIf='installment?.status==="Unpaid"'  (click)='onPrintInstallment(installment?.id)'><mat-icon style="text-align: center; cursor: pointer;" [routerLink]="['/student/create-fee-slip/'+ installment?.id ]">print</mat-icon></td>                                                                    
+                                                                    <td *ngIf='installment?.status==="Paid"' style="text-align: center; color: gray;"><mat-icon>block</mat-icon></td>
+                                                                    <td *ngIf='installment?.status==="Paid"'  (click)='onPrintInstallment(installment?.id)'><mat-icon style="text-align: center; color: gray;">print</mat-icon></td>
+                                                                    <td *ngIf='course?.installments.length == 0'>Lumpsum Plan</td>
+                                                                </tr>
+                                                                <tr *ngIf='course?.installments.length == 0' >
+                                                                    <br>                                                                    
+                                                                    <td >Lumpsum Plan</td>
+                                                                </tr>
+                                                                
+                                                             
+                                                           
+                                                            </tbody>
+                                                        </table> 
+                                                    </mat-tab>
+                                                   
+                                                  </mat-tab-group>
+                                                
+                                            </div>                        
+                                        </div>
+                                                            
+                                    </div>
+                                   
+                                </div>                        
+                            </div>                    
+                        </div>
+                    </div>                  
+            </div>                        
+        </div>
+    </div>
+</div>
+
+
+
+  
+  

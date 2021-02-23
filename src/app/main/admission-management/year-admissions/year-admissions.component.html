@@ -1,0 +1,127 @@
+<div
+    id="users"
+    class="page-layout carded fullwidth inner-scroll"
+    fusePerfectScrollbar
+>
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16">
+                    <mat-icon>reorder</mat-icon>
+                </button>
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">
+                        Current Year's Admissions
+                    </div>
+                </div>
+            </div>
+
+            <!-- / ADD BUTTON -->
+           
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <mat-table
+                class="products-table"
+                #table
+                [dataSource]="dataSource"
+                fusePerfectScrollbar
+            >
+                <!-- Name -->
+                <ng-container matColumnDef="Student Name">
+                    <mat-header-cell *matHeaderCellDef>Student Name</mat-header-cell>
+                    <mat-cell *matCellDef="let admission"
+                    [routerLink]="['/student/profile/' +admission?.students[0]?.id]"
+                    style="color: #337ab7; cursor: pointer;"
+                    >
+                        <p class="text-truncate">{{ admission?.student_name }}</p>
+                    </mat-cell>
+                </ng-container>              
+
+                <!--  Course -->
+                <ng-container matColumnDef="Course">
+                    <mat-header-cell *matHeaderCellDef>Course</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let admission">
+                        <p class="text-truncate">{{ admission?.course?.title }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Batch -->
+                <ng-container matColumnDef="Batch">
+                    <mat-header-cell *matHeaderCellDef
+                        >Batch</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let admission">
+                        <p class="text-truncate">{{ admission?.batch?.alias }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Campus Column -->
+                <ng-container matColumnDef="Campus">
+                    <mat-header-cell *matHeaderCellDef
+                        >Campus</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let admission">
+                        <p class="text-truncate">{{ admission?.campus?.name }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Enrolled By Column -->
+                <ng-container matColumnDef="Enrolled By">
+                    <mat-header-cell *matHeaderCellDef
+                        >Enrolled By</mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let admission">
+                        <p class="text-truncate">{{ admission?.user?.employee?.full_name }}</p>
+                    </mat-cell>
+                </ng-container>        
+                
+                <style>
+                    .developer-image {
+                        width: 52px;
+                        height: 52px;
+                        border: 1px solid rgba(0, 0, 0, 0.12);
+                    }
+                </style>       
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let developer; columns: displayedColumns"
+                    class="product"
+                    matRipple
+                >
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

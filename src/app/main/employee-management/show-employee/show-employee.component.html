@@ -1,0 +1,159 @@
+<div
+    id="users"
+    class="page-layout carded fullwidth inner-scroll"
+    fusePerfectScrollbar
+>
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header accent"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16">
+                    <mat-icon>account_box</mat-icon>
+                </button>
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }"
+                >
+                    <div class="h2">
+                        Employee
+                    </div>
+                </div>
+            </div>
+
+            <!-- / ADD BUTTON -->
+            <button
+                mat-raised-button
+                (click)='onCreateEmployee()'
+                class="add-product-button fuse-white mt-24 mt-md-0"
+            >
+                <span>ADD EMPLOYEE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <mat-table
+                class="products-table"
+                #table
+                [dataSource]="dataSource"
+                fusePerfectScrollbar
+            >
+                <!-- Name Column -->
+                <ng-container matColumnDef="Full Name">
+                    <mat-header-cell *matHeaderCellDef><strong>Full Name</strong></mat-header-cell>
+                    <mat-cell *matCellDef="let employee">
+                        <p class="text-truncate">{{ employee.full_name }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Image Column -->
+                <ng-container matColumnDef="Image">
+                    <mat-header-cell *matHeaderCellDef><b>Image</b></mat-header-cell>
+                    <mat-cell *matCellDef="let employee">
+                        <img class="developer-image" [src]="url+'/'+employee.image" />
+                        <img *ngIf="!employee.image" [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Designation Column -->
+                <ng-container matColumnDef="Designation">
+                    <mat-header-cell *matHeaderCellDef
+                        ><b>Designation</b></mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let employee">
+                        <p class="text-truncate">{{ employee.designation }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Personal Email Column -->
+                <ng-container matColumnDef="Personal Email">
+                    <mat-header-cell *matHeaderCellDef
+                        ><b>Personal Email</b></mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let employee">
+                        <p class="text-truncate">{{ employee.personal_email }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Primary Mobile No Column -->
+                <ng-container matColumnDef="Primary Mobile No">
+                    <mat-header-cell *matHeaderCellDef
+                        ><b>Primary Mobile No</b></mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let employee">
+                        <p class="text-truncate">{{ employee.primary_mobile_no }}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Basic Salary Column -->
+                <ng-container matColumnDef="Basic Salary">
+                    <mat-header-cell *matHeaderCellDef
+                        ><b>Basic Salary</b></mat-header-cell
+                    >
+                    <mat-cell *matCellDef="let employee">
+                        <p class="text-truncate">{{ employee.basic_salary }}</p>
+                    </mat-cell>
+                </ng-container>
+                
+                
+                <style>
+                    .developer-image {
+                        width: 52px;
+                        height: 52px;
+                        border: 1px solid rgba(0, 0, 0, 0.12);
+                    }
+                </style>
+
+                <!-- Action Column -->
+                <!-- <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                    <mat-cell *matCellDef="let category" class="action-link">
+                        <a (click)="onUpdateCategory(category)">
+                            <mat-icon  class="icon"
+                                >edit</mat-icon
+                            >
+                        </a>
+                        |
+                        <a (click)="onDeleteCategory(category.id)">
+                            <mat-icon class="icon"
+                                >delete</mat-icon
+                            >
+                        </a>
+                    </mat-cell>
+                </ng-container> -->
+
+                <mat-header-row
+                    *matHeaderRowDef="displayedColumns; sticky: true"
+                ></mat-header-row>
+
+                <mat-row
+                    *matRowDef="let developer; columns: displayedColumns"
+                    class="product"
+                    matRipple
+                >
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

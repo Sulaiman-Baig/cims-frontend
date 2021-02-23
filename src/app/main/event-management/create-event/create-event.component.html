@@ -1,0 +1,268 @@
+ <!-- <div [formGroup]="orderForm">
+    <div
+        formArrayName="items"
+        *ngFor="let item of orderForm.get('items').controls; let i = index"
+    >
+        <div [formGroupName]="i">
+            <input formControlName="name" placeholder="Item name" />
+            <input
+                formControlName="description"
+                placeholder="Item description"
+            />
+            <input formControlName="price" placeholder="Item price" />
+        </div>
+
+        Chosen name:
+        {{ orderForm.controls.items.controls[i].controls.name.value }}
+    </div>
+
+    <button (click)="addItem()">add new</button>
+    <button (click)="display()">display</button>
+</div> 
+
+<h2 mat-dialog-title>Create Event</h2> -->
+<mat-dialog-content>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="eventForm"
+    >
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" required />
+                <mat-error>Title is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="px-8">
+                <mat-label>Type</mat-label>
+                <mat-select required formControlName="type">
+                    <mat-option *ngFor="let type of types" [value]="type">
+                        {{ type }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Venue</mat-label>
+                <input matInput formControlName="venue" required />
+                <mat-error>Venue is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+                <mat-label>Start Date</mat-label>
+                <input
+                    matInput
+                    formControlName="start_date"
+                    [matDatepicker]="startdate"
+                    required
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="startdate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #startdate></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+                <mat-label>End Date</mat-label>
+                <input
+                    matInput
+                    formControlName="end_date"
+                    [matDatepicker]="enddate"
+                    required
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="enddate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #enddate></mat-datepicker>
+            </mat-form-field>
+        </div> 
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+                <mat-label>Start Time</mat-label>
+                <mat-select formControlName="start_time" required>
+                    <mat-option *ngFor="let time of times" [value]="time">
+                        {{ time }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+                <mat-label>End Time</mat-label>
+                <mat-select formControlName="end_time" required>
+                    <mat-option *ngFor="let time of times" [value]="time">
+                        {{ time }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>           -->
+
+        <div            
+            fxFlex="100"
+            formArrayName="highlights"
+            *ngFor="
+                let highlight of eventForm.get('highlights').controls;
+                let i = index
+            "
+        >
+            <div [formGroupName]="i">
+                <mat-form-field appearance="outline" fxFlex="100">
+                    <mat-label>Highlight</mat-label>
+                    <textarea
+                        matInput
+                        formControlName="highlight"
+                        
+                        rows="1"
+                    ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+
+         <div                  
+            fxFlex="100"
+            appearance="outline"
+            formArrayName="speakers"
+            *ngFor="
+                let speaker of eventForm.get('speakers').controls;
+                let i = index
+            "
+        >
+         
+            <div [formGroupName]="i" fxLayout="column"
+            fxLayoutAlign="start"
+            fxFlex="1 0 auto">
+                <div fxLayout="row"   fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field
+                        appearance="outline"
+                        fxFlex="50"
+                        class="pr-4 "
+                    >
+                        <mat-label>Speaker's Name</mat-label>
+                        <input matInput formControlName="name" />
+                        <mat-error>Speaker Name is required!</mat-error>
+                    </mat-form-field>
+        
+                    <div fxFlex="50" class="pl-4 " >
+                        <button
+                            mat-stroked-button
+                            type="button"
+                            (click)="filePicker.click()"
+                            style=" width: 100%;
+                            height: 58px; bottom: 12px;" 
+                        >
+                            Speaker's Image
+                        </button>
+                        <input
+                            type="file"
+                            #filePicker
+                            (change)="onVideoPicked($event)"
+                            style="display:none; "
+                            formControlName="image"
+                        />
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                   
+                    <mat-form-field appearance="outline" fxFlex="100">
+                        <mat-label>Speaker's Short Description</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="short_description"
+                            
+                            rows="1"
+                        ></textarea>
+                    </mat-form-field>                     
+                   
+                </div>
+            </div>
+        </div> 
+
+       
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <div fxFlex="50" class="pr-4 ">
+                <button
+                    mat-stroked-button
+                    type="button"
+                    (click)="filePicker.click()"
+                    style=" width: 100%;
+                    height: 55px;"
+                >
+                    Event Image
+                </button>
+                <input
+                    type="file"
+                    #filePicker
+                    (change)="onImagePicked($event)"
+                    style="display:none; "
+                />
+            </div>
+
+            <div fxFlex="50" class="pl-4 ">
+                <button
+                    mat-stroked-button
+                    type="button"
+                    (click)="filePicker.click()"
+                    style=" width: 100%;
+                    height: 55px;"
+                >
+                   Event Video
+                </button>
+                <input
+                    type="file"
+                    #filePicker
+                    (change)="onVideoPicked($event)"
+                    style="display:none; "
+                />
+            </div>
+        </div>  -->
+    </form>
+</mat-dialog-content>
+
+<br />
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="onAddHighlights()">
+        ADD HIGHLIGHT
+    </button>
+    <button class="mat-raised-button" (click)="onAddSpeakers()">
+        ADD SPEAKER
+    </button>
+    <button class="mat-raised-button" (click)="display()">
+        DISPLAY
+    </button>
+
+    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        CLOSE
+    </button>
+
+    <button
+        class="mat-raised-button mat-primary"
+        (click)="onCreateEvent()"
+        style="background: #039be5"
+    >
+        CREATE
+    </button>
+</mat-dialog-actions> 

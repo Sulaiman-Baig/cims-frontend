@@ -1,0 +1,150 @@
+<h2 mat-dialog-title>New Batch</h2>
+<mat-dialog-content fusePerfectScrollbar>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="form"
+    >
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field
+            appearance="outline"
+            fxFlex="100"
+            
+        >
+            <mat-label>Campus</mat-label>
+            <mat-select formControlName="campus_id">
+                <mat-option *ngFor="let campus of campuses" [value]="campus.id">
+                    {{ campus.name }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Campus is required!</mat-error>
+        </mat-form-field>
+
+     
+    </div>
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+            <mat-label>Course</mat-label>
+            <mat-select formControlName="course_id">
+                <mat-option *ngFor="let course of courses" [value]="course.id">
+                    {{ course.title }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Course is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>Taught By</mat-label>
+            <mat-select formControlName="employee_id">
+                <mat-option *ngFor="let employee of employees" [value]="employee.id">
+                    {{ employee.full_name }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Taught By is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+            <mat-label>Title</mat-label>
+                <input matInput formControlName="title" />
+                <mat-error>Title is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>No. of Seats</mat-label>
+                <input matInput formControlName="no_of_seats" />
+                <mat-error>No. of Seats is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+            <mat-label>Start Date</mat-label>
+                <input
+                    matInput
+                    formControlName="batch_start_date"
+                    [matDatepicker]="batch_start_date"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="batch_start_date"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #batch_start_date></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>Time</mat-label>
+            <mat-select formControlName="starttime">
+                <mat-option *ngFor="let time of times" [value]="time">
+                    {{ time }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Time is required!</mat-error>
+            </mat-form-field>
+        </div>     
+        
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="100"
+                
+            >
+                <mat-label>Remarks</mat-label>
+                <textarea
+                    matInput
+                   formControlName='remarks'
+                    placeholder="Write some remarks"
+                    rows="1"
+                    required
+                ></textarea>
+                <mat-icon matSuffix class="secondary-text">subject</mat-icon>
+                <mat-error>Remarks is required!</mat-error>
+            </mat-form-field>
+
+         
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        CLOSE
+    </button>
+   
+    <button
+        class="mat-raised-button mat-primary"
+        (click)="onCreateBatch()"
+        style="background: #039be5"
+    >
+        CREATE
+    </button>
+</mat-dialog-actions>

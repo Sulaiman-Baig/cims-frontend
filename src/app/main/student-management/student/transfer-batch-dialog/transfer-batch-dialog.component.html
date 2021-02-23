@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>Transfer Batch</h2>
+<mat-dialog-content fusePerfectScrollbar>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="form"
+    >
+        <br />
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 "
+            >
+                <mat-label>Batch</mat-label>
+                <mat-select
+                    formControlName="batchTo"
+                   
+                >
+                    <mat-option *ngFor="let batch of batches" [value]="batch.id">
+                        {{ batch.alias }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 "
+            >
+                <mat-label>Reason</mat-label>
+                <mat-select
+                    formControlName="reason"
+                   
+                >
+                    <mat-option *ngFor="let reason of reasons" [value]="reason">
+                        {{ reason }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        
+
+        <div>
+            <mat-form-field appearance="outline" fxFlex="100" class="textarea">
+                <mat-label>Remarks</mat-label>
+                <textarea
+                    matInput
+                    formControlName="remarks"
+                    placeholder="Write some notes"
+                    rows="4"
+                ></textarea>
+                <mat-icon matSuffix class="secondary-text">subject</mat-icon>
+                <mat-error>Remarks is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <br />
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        CLOSE
+    </button>
+    <button
+        class="mat-raised-button mat-primary"
+       
+        (click)="onBatchTransfer()"
+        style="background: #039be5"
+        [disabled]='form.invalid'
+    >
+        TRANSFER
+    </button>
+   
+</mat-dialog-actions>

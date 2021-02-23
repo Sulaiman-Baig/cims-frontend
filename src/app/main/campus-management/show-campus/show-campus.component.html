@@ -1,0 +1,175 @@
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent"
+             fxLayout="column" fxLayoutAlign="center center"
+             fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0"
+                 fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    account_balance
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Campuses
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <!-- <div class="search-wrapper mx-32 mx-md-0">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Search for a product">
+                </div>
+            </div> -->
+            <!-- / SEARCH -->
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button
+                  (click)='onAddCampus()'
+                    class="add-product-button fuse-white mt-24 mt-md-0">
+                <span>ADD NEW CAMPUS</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <mat-table class="products-table"
+                       #table [dataSource]="dataSource"
+                       matSort
+                       [@animateStagger]="{value:'50'}"
+                       fusePerfectScrollbar>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="ID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sr No.</mat-header-cell>
+                    <mat-cell *matCellDef="let campus">
+                        <p class="text-truncate">{{campus.id}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Image Column -->
+                <!-- <ng-container matColumnDef="image">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <img class="product-image"
+                             *ngIf="product.featuredImageId" [alt]="product.name"
+                             [src]="product.images[product.featuredImageId].url"/>
+                        <img *ngIf="!product.featuredImageId"
+                             [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                    </mat-cell>
+                </ng-container> -->
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="Name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let campus">
+                        <p class="text-truncate">{{campus.name}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- City Column -->
+                <ng-container matColumnDef="City">
+                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>City</mat-header-cell>
+                    <mat-cell *matCellDef="let campus" fxHide fxShow.gt-md>
+                        <p class="category text-truncate">
+                            {{campus.city}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Location Column -->
+                <ng-container matColumnDef="Location">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Location</mat-header-cell>
+                    <mat-cell *matCellDef="let campus" fxHide fxShow.gt-xs>
+                        <p class="price text-truncate">
+                            {{campus.location }}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Inagularion Column -->
+                <!-- <ng-container matColumnDef="Inagularion">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Inagularion Date</mat-header-cell>
+                    <mat-cell *matCellDef="let campus" fxHide fxShow.gt-sm>
+
+                        <span class="quantity-indicator text-truncate"
+                              [ngClass]="{'red-500':product.quantity <= 5, 'amber-500':product.quantity > 5 && product.quantity <= 25,'green-600':product.quantity > 25}">
+                        </span>
+                        <span>
+                            {{campus.campus_inguration_date}}
+                        </span>
+
+                    </mat-cell>
+                </ng-container> -->
+
+                <!-- Inagularion Column -->
+                <!-- <ng-container matColumnDef="Inagularion">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Inagularion</mat-header-cell>
+                    <mat-cell *matCellDef="let campus" fxHide fxShow.gt-xs>
+                        <p class="price text-truncate">
+                            {{campus.campus_inguration_date |date }}
+                        </p>
+                    </mat-cell>
+                </ng-container> -->
+
+                 <!-- Remarks Column -->
+                 <!-- <ng-container matColumnDef="Remarks">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Remarks</mat-header-cell>
+                    <mat-cell *matCellDef="let campus" fxHide fxShow.gt-xs>
+                        <p class="price text-truncate">
+                            {{campus.remarks }}
+                        </p>
+                    </mat-cell>
+                </ng-container> -->
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                    <mat-cell *matCellDef="let campus" class="action-link">
+                        
+                        <a (click)="onUpdateCampus(campus)">
+                            <mat-icon class="icon"
+                                >edit</mat-icon
+                            >
+                        </a>
+                    </mat-cell>
+                </ng-container>
+
+                
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                <mat-row *matRowDef="let product; columns: displayedColumns;"
+                         class="product"
+                         matRipple
+                       >
+                </mat-row>
+
+            </mat-table>
+
+            <mat-paginator #paginator
+                          
+                           [pageIndex]="0"
+                           [pageSize]="10"
+                           [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+            <!-- [length]="dataSource.filteredData.length" -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

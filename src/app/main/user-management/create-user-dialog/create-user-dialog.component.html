@@ -1,0 +1,114 @@
+<h2 mat-dialog-title>New User</h2>
+<mat-dialog-content fusePerfectScrollbar>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="registerForm"
+    >
+      
+
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+            <mat-label>Employee</mat-label>
+            <mat-select formControlName="employee_id">
+                <mat-option *ngFor="let employee of employees" [value]="employee.id">
+                    {{ employee.full_name }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Employee is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="is_active">
+                <mat-option *ngFor="let isActive of isActives" [value]="isActive.value">
+                    {{ isActive.status }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Status is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+            <mat-label>Username</mat-label>
+                <input matInput formControlName="username" />
+                <mat-error>Username is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+                <mat-option *ngFor="let role of roles" [value]="role.value">
+                    {{ role.type }}
+                </mat-option>
+            </mat-select>
+            <mat-error>Role is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-error>
+                Password is required
+            </mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+            <mat-label>Password (Confirm)</mat-label>
+            <input matInput type="password" formControlName="passwordConfirm">
+            <mat-error *ngIf="registerForm.get('passwordConfirm').hasError('required')">
+                Confirmation is required
+            </mat-error>
+            <mat-error *ngIf="!registerForm.get('passwordConfirm').hasError('required') &&
+                               registerForm.get('passwordConfirm').hasError('passwordsNotMatching')">
+                Passwords must match
+            </mat-error>
+            </mat-form-field>
+        </div>       
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        CLOSE
+    </button>
+   
+    <button
+        class="mat-raised-button mat-primary"
+        (click)="onCreateUser()"
+        style="background: #039be5"
+        [disabled]="registerForm.invalid"
+    >
+        CREATE
+    </button>
+</mat-dialog-actions>

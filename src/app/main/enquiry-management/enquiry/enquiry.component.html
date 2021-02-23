@@ -1,0 +1,50 @@
+<div id="profile" class="page-layout simple tabbed">
+
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+         fxLayoutAlign.gt-sm="space-between end">
+
+        <div class="user-info" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+             fxLayoutAlign.gt-sm="start center">
+            <!-- <img class="profile-image avatar huge" src="assets/images/avatars/Velazquez.jpg"
+                 [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}"> -->
+            <div class="name" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                Enquiry ({{enquiry?.full_name}})
+            </div>
+        </div>
+
+        <div class="actions" fxLayout="row" fxLayoutAlign="end center" [@animate]="{value:'*',params:{delay:'200ms'}}">
+            <button mat-raised-button color="accent" aria-label="Follow" (click)='onCall(enquiry)'> Voice Call</button>
+            <button mat-raised-button color="accent" aria-label="Follow" >Send SMS</button>
+            <button mat-raised-button color="accent" aria-label="Follow" >Send Email</button>
+            <button mat-raised-button color="accent" aria-label="Follow" (click)='onWalkIn(enquiry)'>Walkin</button>
+            <button mat-raised-button color="accent" aria-label="Follow" [routerLink]="['/admission/create']">Enroll</button>
+            <button mat-raised-button color="accent" aria-label="Follow" (click)='onTransferEnquiry(enquiry)'>Transfer</button>
+            <!-- <button mat-raised-button color="accent" aria-label="Follow" (click)='onUpdateEnquiry()'>Update</button> -->
+       
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Details">
+                <app-enquiry-details></app-enquiry-details>
+            </mat-tab>
+
+            <mat-tab label="History">
+                <app-enquiry-history></app-enquiry-history>
+            </mat-tab>
+
+           
+
+        </mat-tab-group>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

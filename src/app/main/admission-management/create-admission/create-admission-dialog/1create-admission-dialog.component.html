@@ -1,0 +1,233 @@
+<h2 mat-dialog-title>Create Admission</h2>
+<mat-dialog-content fusePerfectScrollbar>
+    <form
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="form"
+    >
+        <div class="container">
+            <div class="line"><mat-divider></mat-divider></div>
+            <div class="text mat-typography">Personal Information</div>
+            <div class="line"><mat-divider></mat-divider></div>
+        </div>
+        <br />
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Student Name</mat-label>
+                <input matInput formControlName="studentname" required />
+                <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
+                <mat-error>Student Name is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="px-8">
+                <mat-label>Guardian's Name</mat-label>
+                <input matInput formControlName="guardianname" />
+                <!-- <mat-icon matSuffix class="secondary-text">timeline</mat-icon> -->
+                <mat-error>Guardian's Name is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Select Course</mat-label>
+                <mat-select
+                    (selectionChange)="onSlect()"
+                    formControlName="course_id"
+                >
+                    <mat-option
+                        *ngFor="let course of courses"
+                        [value]="course.id"
+                    >
+                        {{ course.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Select Date of Birth</mat-label>
+                <input matInput formControlName="dob" type="datetime-local" />
+                <mat-datepicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="px-8">
+                <mat-label>N.I.C</mat-label>
+                <input matInput formControlName="nic" />
+                <!-- <mat-icon matSuffix class="secondary-text">timeline</mat-icon> -->
+                <mat-error>N.I.C is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Select Gender</mat-label>
+                <mat-select
+                    (selectionChange)="onSlect()"
+                    formControlName="gender_id"
+                >
+                    <mat-option
+                        *ngFor="let gender of genders"
+                        [value]="gender.id"
+                    >
+                        {{ gender.type }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Nationality</mat-label>
+                <input matInput formControlName="nationality" required />
+                <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
+                <mat-error>Nationality is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="34" class="px-8">
+                <mat-label>Personal Contact No.</mat-label>
+                <input matInput formControlName="personalcontact" />
+                <!-- <mat-icon matSuffix class="secondary-text">timeline</mat-icon> -->
+                <mat-error>Personal Contact No. is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="33">
+                <mat-label>Guardian's Contact No.</mat-label>
+                <input matInput formControlName="guardiancontact" required />
+                <!-- <mat-icon matSuffix class="secondary-text">account_circle</mat-icon> -->
+                <mat-error>Guardian's Contact No. is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pr-4 twodivs"
+            >
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" />
+                <mat-error>Email is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="50"
+                class="pl-4 twodivs"
+            >
+                <mat-label>Postal Address</mat-label>
+                <input matInput formControlName="postaladdress" required />
+                <mat-error>Postal Address is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="container">
+            <div class="line"><mat-divider></mat-divider></div>
+            <div class="text mat-typography">Academic Record</div>
+            <div class="line"><mat-divider></mat-divider></div>
+        </div>
+        <br />
+        <!--  -->
+        <!--  -->
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field appearance="outline" fxFlex="25" class="fourdivs">
+                <mat-label>Certificate / Degree</mat-label>
+                <input matInput formControlName="certificate" required />
+                <mat-error>Certificate / Degree is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="25"
+                class="fourdivs"
+                style="left: 12px;"
+            >
+                <mat-label>College / University</mat-label>
+                <input matInput formControlName="college" required />
+                <mat-error>College / University is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="25"
+                class="fourdivs"
+                style="left: 24px;"
+            >
+                <mat-label>Year</mat-label>
+                <input matInput formControlName="year" required />
+                <mat-error>Year is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                fxFlex="25"
+                class="fourdivs"
+                style="left: 40px;"
+            >
+                <mat-label>Marks / Percentage</mat-label>
+                <input matInput formControlName="marks" required />
+                <mat-error>Marks/Percentage is required!</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="container">
+            <div class="line"><mat-divider></mat-divider></div>
+            <div class="text mat-typography">Registration and Fee</div>
+            <div class="line"><mat-divider></mat-divider></div>
+        </div>
+        <br />
+        <!--  -->
+        <!--  -->
+
+        
+
+        <!-- <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+            <mat-form-field
+                appearance="outline"
+                fxFlex="66"
+                class="pr-4"
+                style="height: auto; width:640px;"
+            >
+                <mat-label>Remarks</mat-label>
+                <textarea
+                    matInput
+                    [(ngModel)]="remarks"
+                    placeholder="Write some remarks"
+                    rows="1"
+                    required
+                ></textarea>
+                <mat-icon matSuffix class="secondary-text">subject</mat-icon>
+                <mat-error>Remarks is required!</mat-error>
+            </mat-form-field>
+
+            <mat-slider
+                fxFlex="34"
+                class="pl-4"
+                style="height: auto; width:305px; top: -20px; left: 10px;"
+            >
+            </mat-slider>
+        </div> -->
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions style="position: relative; float: right; bottom: 10px;">
+    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        CLOSE
+    </button>
+    <button
+        class="mat-raised-button mat-primary"
+        *ngIf="mode"
+        (click)="saveNotes()"
+        style="background: #039be5"
+    >
+        SAVE
+    </button>
+    <button
+        class="mat-raised-button mat-primary"
+        *ngIf="!mode"
+        (click)="editNotes(notesId)"
+        style="background: #039be5"
+    >
+        CREATE
+    </button>
+</mat-dialog-actions>
